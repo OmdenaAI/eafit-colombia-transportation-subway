@@ -36,7 +36,7 @@ def PATHFINDING(selected_origin : tuple,selected_destination : tuple) -> list :
     for i in range(len(djk)):   djk[i] = eval(djk[i])[::-1]
 
     # Map's initial zoom and center
-    map = folium.Map([sum(selected_origin[1],selected_destination[1])/2 , sum(selected_origin[0],selected_destination[0])/2], zoom_start = "14")
+    map = folium.Map([(selected_origin[1]+selected_destination[1])/2 , (selected_origin[0]+selected_destination[0])/2], zoom_start = "14")
     # Line config
     route = folium.PolyLine(djk,color = 'red' ,weight = 5,opacity = 0.8).add_to(map)
 
