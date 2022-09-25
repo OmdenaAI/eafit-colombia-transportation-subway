@@ -15,6 +15,8 @@ from math import dist   #  [DISTANCE]. quick calculation of [DISTANCE] between p
 dataframe = pd.read_csv("streets_database.csv", sep=';') 
 # Transforms the pandas dataframe into a graph. The streets are now nodes with  between coordinates
 graph = nx.from_pandas_edgelist(dataframe,source='origin',target='destination',edge_attr= 'length')
+# A list with all the streets origin nodes in tuple type, we will iterate on it in the custom coords functions
+origins = list(map(eval,set(list(dataframe['origin']))))
 
 
 
@@ -172,12 +174,11 @@ def custom_coord_menu():
 
 # Approximates the custom coords to one of the coords we already have in the dataframe, now we can use it.
 def approximator(original_coords):
-    # A list with all the streets origin nodes in tuple type, we will iterate in it
-    origins = map(eval,set(list(dataframe['origin'])))
+    
     aprox_coords = None     #coord
     distance = None         #distance to compare    
     
-    for i in origins:
+    for i in origins.copy():
         distance_temp = dist(original_coords,i)
 
         if aprox_coords != None:
